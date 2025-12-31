@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Year Surprise 2026</title>
+    
     <style>
         body {
             margin: 0;
@@ -17,15 +18,19 @@
             overflow: hidden;
             user-select: none;
         }
+
         #app { width: 100%; max-width: 400px; height: 100%; display: flex; justify-content: center; align-items: center; }
         .screen { display: none; text-align: center; flex-direction: column; align-items: center; animation: fadeIn 0.5s; width: 90%; }
         .screen.active { display: flex; }
+
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
         /* Progress Ring */
         .heart-container { position: relative; margin: 40px; }
         .heart { font-size: 60px; cursor: pointer; z-index: 2; position: relative; }
         .progress-ring { position: absolute; top: -25px; left: -25px; transform: rotate(-90deg); }
         #progress-circle { stroke-dasharray: 314; stroke-dashoffset: 314; transition: stroke-dashoffset 0.1s linear; }
+
         /* Card Stack */
         .card-stack { position: relative; width: 220px; height: 300px; margin-top: 30px; }
         .card {
@@ -35,12 +40,14 @@
             cursor: pointer; transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.5s;
         }
         .gift-card { background: #ff4757; font-size: 60px; }
+
         /* Ticket Design */
         .ticket {
             background: #f1c40f; color: #2c3e50; padding: 30px;
             border-radius: 15px; border: 4px dashed #2c3e50;
             box-shadow: 0 0 20px rgba(241, 196, 15, 0.4);
         }
+
         /* Letter Design */
         .letter {
             background: #fff9e6; color: #333; padding: 30px;
@@ -50,6 +57,7 @@
             transition: all 0.8s ease; width: 100%;
         }
         .letter.show { display: block; transform: translateY(0); opacity: 1; }
+
         button {
             margin-top: 25px; padding: 12px 30px; border: none;
             border-radius: 25px; background: #ff4757; color: white;
@@ -58,6 +66,11 @@
     </style>
 </head>
 <body>
+
+    <audio id="bg-music" loop>
+        <source src="https://github.com/Sainikasri/New-year-surprise-/raw/refs/heads/main/Dheema%20BGM.mp3" type="audio/mpeg">
+    </audio>
+
     <div id="app">
         <div id="screen-1" class="screen active">
             <h2>A little surprise for you</h2>
@@ -69,8 +82,9 @@
             </div>
             <p>Tap and hold the heart</p>
         </div>
+
         <div id="screen-2" class="screen">
-            <h2>Move the distractions aside</h2>
+            <h2>Tap the slides aside</h2>
             <div class="card-stack">
                 <div class="card" style="background: #a29bfe; z-index: 4;">Bad Days</div>
                 <div class="card" style="background: #fab1a0; z-index: 3;">Work Stress</div>
@@ -78,40 +92,35 @@
                 <div class="card gift-card" id="gift-card" style="z-index: 1;">🎁</div>
             </div>
         </div>
+
         <div id="screen-3" class="screen">
             <div id="ticket-container" class="ticket">
                 <p style="margin: 0;">ADMIT ONE</p>
                 <h1 style="margin: 10px 0;">GOLDEN TICKET</h1>
                 <p><i>"Unlimited Love & Smiles"</i></p>
-                <p style="font-size: 12px;">Valid for: 2026 & Beyond</p>
                 <button id="claim-btn">CLAIM TICKET</button>
             </div>
+
             <div id="letter-container" class="letter">
                 <h3 style="text-align: center;">Happy New Year! ✨</h3>
-                <p>Dear Appu🤍</p>
-                <p> 
-                    I wish this year brings you calm and wonderful days ahead
-                </p>
-                <p>
-                    No matter what 2026 holds, I hope you always feel supported 
-                    and valued. Love you Thangameyyyyyy😘🤗.. Happy 1 year of us🥹🖤🤍..Miles to goo♾️🤗✨
-                </p>
-                <p>You deserve a year filled with happiness🤗✨.</p>
+                <p>Dear Appu🤍,</p>
+                <p>I wish this year brings you calm and wonderful days ahead🤗.</p>
+                <p>No matter what 2026 holds, I hope you always feel supported🤗 
+                  Love you Thangameyyyyyy 😘🤗🤍🖤...
+                  Happy one year of us🥹🌎..Miles to goo♾️🤗.</p>
                 <p style="text-align: right;">— Ammu🖤</p>
                 <center><button onclick="location.reload()" style="background:#333">Close</button></center>
             </div>
         </div>
     </div>
+
     <script>
         let holdTimer;
         let progress = 314;
         const heart = document.getElementById('hold-heart');
         const circle = document.getElementById('progress-circle');
+        const music = document.getElementById('bg-music');
 
-        // Music Logic
-        const audio = new Audio('Dheema BGM.mp3');
-
-        // Screen 1 Logic
         function startHold(e) {
             e.preventDefault();
             holdTimer = setInterval(() => {
@@ -128,12 +137,12 @@
             progress = 314;
             circle.style.strokeDashoffset = 314;
         }
+
         heart.addEventListener('mousedown', startHold);
         heart.addEventListener('touchstart', startHold);
         window.addEventListener('mouseup', endHold);
         window.addEventListener('touchend', endHold);
 
-        // Screen 2 Logic
         const cards = document.querySelectorAll('.card:not(.gift-card)');
         cards.forEach(card => {
             card.addEventListener('click', () => {
@@ -141,16 +150,14 @@
                 card.style.opacity = "0";
             });
         });
+
         document.getElementById('gift-card').addEventListener('click', () => showScreen(3));
 
-        // Screen 3 Logic: Claiming the Ticket
+        // Start Music when Ticket is Claimed
         document.getElementById('claim-btn').addEventListener('click', () => {
-            // Play Music
-            audio.play().catch(e => console.log("Music blocked"));
-            
+            music.play().catch(e => console.log("Music blocked by browser"));
             document.getElementById('ticket-container').style.display = 'none';
-            const letter = document.getElementById('letter-container');
-            letter.classList.add('show');
+            document.getElementById('letter-container').classList.add('show');
         });
 
         function showScreen(num) {
